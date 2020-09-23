@@ -4,9 +4,9 @@ A simple script that converts Google's Location Data from JSON format to a csv.
 Read more about it [here](https://python-everything.com/post/136/Google-is-tracking-you%2C-and-you-can-pitch-in-to-analyse-the-data%21.html)
 
 
-#Google is tracking you, and you can pitch in to analyse the data!
+# Google is tracking you, and you can pitch in to analyse the data!
 
-##Requesting your personal data from google to create a Pandas DataFrame with all the locations you have visited
+## Requesting your personal data from google to create a Pandas DataFrame with all the locations you have visited
 
 I wasn't aware, but you are able to [download](https://takeout.google.com/) the data that Google collects on you! This is both incredible interesting and terrifying at the same time. Let us for now focus on mainly the first part, that it's incredibly interesting.
 
@@ -34,7 +34,6 @@ I requested all my location data from above's link, which was send to me after 2
 
 Let's have a look at the **GoogleLocationData/Location History/Location History.json** file:
 
-    ::js
     {
     "locations" : [ {
         "timestampMs" : "1379618430096",
@@ -71,20 +70,17 @@ Interesting! We have a **timestampMs** variable (which is the timestamp at that 
 
 I'd like to convert the **JSON** file to a csv file, for future analysis. I'll do this with the **JSON** library, the **datetime** library and the **pandas** library.
 
-    ::python
     import json
     import datetime
     import pandas as pd
 
 First, I would like to read in the data, and return a Python dictionary.
 
-    ::python
     with open('Location History.json') as json_file:
         data = json.load(json_file)
 
 Now, we have a dictionary, but there are some more key-values in there then we need. Therefore, I will loop over each element in the dictionary and append the time and location to a list.
 
-    ::python
     output_list = []
     for loc in data.get('locations'):
         output_list.append({
@@ -95,13 +91,11 @@ Now, we have a dictionary, but there are some more key-values in there then we n
 
 The **output_list** contains all the data I need, in a list of dictionaries. This is easy to convert to a Panda's DataFrame, which allows us to output the data into a csv.
 
-    ::python
     df = pd.DataFrame(data = output_json)
     df.to_csv('output.csv',index=False)
 
 We now have a csv, consisting of the following:
 
-    ::python
     print(df.head)
 
 | id     | timestamp               | latitude   | longitude  |
